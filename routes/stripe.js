@@ -303,17 +303,36 @@ router.post('/create-subscription-intent', [
     body('registrationData.email').isEmail().withMessage('Valid email is required'),
     body('registrationData.gradeLevel').isIn(['elementary', 'middle', 'high']).withMessage('Valid grade level is required')
 ], async (req, res) => {
+    // Debug logging
+    console.log('Received create-subscription-intent request:', JSON.stringify(req.body, null, 2));
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        console.log('Validation errors:', errors.array());
+        return res.status(400).json({ 
+            success: false,
+            message: 'Validation failed',
+            errors: errors.array() 
+        });
     }
 
     try {
         const { registrationData } = req.body;
+        console.log('SUBSCRIPTION_PRICES:', SUBSCRIPTION_PRICES);
+        console.log('Looking for priceId for grade level:', registrationData.gradeLevel);
+        
         const priceId = SUBSCRIPTION_PRICES[registrationData.gradeLevel];
+        console.log('Found priceId:', priceId);
         
         if (!priceId) {
-            return res.status(400).json({ error: 'Invalid grade level or missing price configuration' });
+            console.log('No price ID found for grade level:', registrationData.gradeLevel);
+            console.log('Available price IDs:', Object.keys(SUBSCRIPTION_PRICES));
+            return res.status(400).json({ 
+                success: false,
+                error: 'Invalid grade level or missing price configuration',
+                gradeLevel: registrationData.gradeLevel,
+                availableGrades: Object.keys(SUBSCRIPTION_PRICES)
+            });
         }
 
         // Create or retrieve Stripe customer
