@@ -7,6 +7,13 @@ const dataService = require('../services/data');
 const router = express.Router();
 
 // Stripe Price IDs for monthly subscriptions
+// Debug environment variables
+console.log('Environment variables check:');
+console.log('STRIPE_ELEMENTARY_PRICE_ID:', process.env.STRIPE_ELEMENTARY_PRICE_ID);
+console.log('STRIPE_MIDDLE_PRICE_ID:', process.env.STRIPE_MIDDLE_PRICE_ID);
+console.log('STRIPE_HIGH_PRICE_ID:', process.env.STRIPE_HIGH_PRICE_ID);
+console.log('All env keys starting with STRIPE:', Object.keys(process.env).filter(key => key.startsWith('STRIPE')));
+
 const SUBSCRIPTION_PRICES = {
     'elementary': process.env.STRIPE_ELEMENTARY_PRICE_ID,
     'middle': process.env.STRIPE_MIDDLE_PRICE_ID,
