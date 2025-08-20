@@ -16,8 +16,8 @@ const dataService = require('./services/data');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Trust proxy for deployment platforms (Railway, Heroku, etc.)
-app.set('trust proxy', true);
+// Trust proxy for deployment platforms (Railway, Heroku, etc.) - only trust the first proxy
+app.set('trust proxy', 1);
 
 // Security middleware - configured for Stripe integration
 app.use(helmet({
@@ -52,13 +52,18 @@ app.use(helmet({
     }
 }));
 
-// Rate limiting
+// Rate limiting with proxy-aware configuration
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
     message: 'Too many requests from this IP, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
+    trustProxy: true, // Explicitly trust proxy for this rate limiter
+    keyGenerator: (req) => {
+        // Use the real IP from proxy headers if available, fallback to connection IP
+        return req.ip || req.connection.remoteAddress || 'unknown';
+    }
 });
 app.use('/api/', limiter);
 
@@ -69,6 +74,11 @@ const paymentLimiter = rateLimit({
     message: 'Too many payment attempts, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
+    trustProxy: true, // Explicitly trust proxy for this rate limiter
+    keyGenerator: (req) => {
+        // Use the real IP from proxy headers if available, fallback to connection IP
+        return req.ip || req.connection.remoteAddress || 'unknown';
+    }
 });
 
 // CORS configuration
