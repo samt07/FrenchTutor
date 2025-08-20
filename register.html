@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Classes - FrenchTutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🇫🇷 FrenchTutor</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="classes.html" class="nav-link">Classes</a></li>
+                <li class="nav-item"><a href="demo.html" class="nav-link">Book Demo</a></li>
+                <li class="nav-item"><a href="register.html" class="nav-link active">Register</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Register for French Classes</h1>
+                <p>Start your French learning journey today with our comprehensive courses</p>
+            </div>
+        </section>
+
+        <section class="registration-section">
+            <div class="container">
+                <div class="registration-wrapper">
+                    <div class="registration-steps">
+                        <div class="step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Personal Info</div>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Class Selection</div>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Schedule & Payment</div>
+                        </div>
+                    </div>
+
+                    <form class="registration-form" id="registrationForm">
+                        <!-- Step 1: Personal Information -->
+                        <div class="form-step active" id="step1">
+                            <h2>Personal Information</h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="regFirstName">First Name *</label>
+                                    <input type="text" id="regFirstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regLastName">Last Name *</label>
+                                    <input type="text" id="regLastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regEmail">Email Address *</label>
+                                <input type="email" id="regEmail" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regPhone">Phone Number *</label>
+                                <input type="tel" id="regPhone" name="phone" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <select id="age" name="age">
+                                        <option value="">Select age range</option>
+                                        <option value="under-18">Under 18</option>
+                                        <option value="18-25">18-25</option>
+                                        <option value="26-35">26-35</option>
+                                        <option value="36-45">36-45</option>
+                                        <option value="46-55">46-55</option>
+                                        <option value="over-55">Over 55</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="occupation">Occupation</label>
+                                    <input type="text" id="occupation" name="occupation" placeholder="e.g., Student, Engineer, Teacher">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regFrenchLevel">Current French Level *</label>
+                                <select id="regFrenchLevel" name="frenchLevel" required>
+                                    <option value="">Please select your level</option>
+                                    <option value="complete-beginner">Complete Beginner (Never studied French)</option>
+                                    <option value="beginner">Beginner (A1)</option>
+                                    <option value="elementary">Elementary (A2)</option>
+                                    <option value="intermediate">Intermediate (B1)</option>
+                                    <option value="upper-intermediate">Upper Intermediate (B2)</option>
+                                    <option value="advanced">Advanced (C1)</option>
+                                    <option value="proficient">Proficient (C2)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="previousExperience">Previous French Learning Experience</label>
+                                <textarea id="previousExperience" name="previousExperience" rows="3" placeholder="Tell us about any previous French learning experience..."></textarea>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" id="nextStep1">Next Step</button>
+                        </div>
+
+                        <!-- Step 2: Subscription Selection -->
+                        <div class="form-step" id="step2">
+                            <h2>Choose Your Monthly Subscription</h2>
+
+                            <div class="grade-selection">
+                                <h3>Select Your Grade Level *</h3>
+                                <div class="radio-group">
+                                    <label class="radio-card">
+                                        <input type="radio" name="gradeLevel" value="elementary" required>
+                                        <div class="card-content">
+                                            <h4>Elementary School (3rd-5th Grade)</h4>
+                                            <div class="price">₹3,500/month</div>
+                                            <p>Unlimited classes + student login</p>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card recommended">
+                                        <div class="recommended-badge">Most Popular</div>
+                                        <input type="radio" name="gradeLevel" value="middle" required>
+                                        <div class="card-content">
+                                            <h4>Middle School (6th-8th Grade)</h4>
+                                            <div class="price">₹4,500/month</div>
+                                            <p>Unlimited classes + student login</p>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="gradeLevel" value="high" required>
+                                        <div class="card-content">
+                                            <h4>High School (9th-12th Grade)</h4>
+                                            <div class="price">₹5,500/month</div>
+                                            <p>Unlimited classes + student login</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="specialty-selection">
+                                <h3>Additional Services (Optional)</h3>
+                                <p class="specialty-note">These services can be added to your subscription. Contact us for pricing details.</p>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="specialty" value="travel">
+                                        <span class="checkmark"></span>
+                                        Travel French Preparation
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="specialty" value="business">
+                                        <span class="checkmark"></span>
+                                        Business French Skills
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="specialty" value="exam">
+                                        <span class="checkmark"></span>
+                                        DELF/DALF Exam Preparation
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="specialty" value="college">
+                                        <span class="checkmark"></span>
+                                        College Credit Preparation
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" id="nextStep2">Next Step</button>
+                        </div>
+
+                        <!-- Step 3: Schedule & Payment -->
+                        <div class="form-step" id="step3">
+                            <h2>Schedule & Payment</h2>
+
+                            <div class="schedule-preferences">
+                                <h3>Schedule Preferences</h3>
+                                
+
+
+                                <div class="form-group">
+                                    <label>Preferred Days *</label>
+                                    <div class="days-selection">
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="monday">
+                                            <span>Mon</span>
+                                        </label>
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="tuesday">
+                                            <span>Tue</span>
+                                        </label>
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="wednesday">
+                                            <span>Wed</span>
+                                        </label>
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="thursday">
+                                            <span>Thu</span>
+                                        </label>
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="friday">
+                                            <span>Fri</span>
+                                        </label>
+                                        <label class="day-checkbox">
+                                            <input type="checkbox" name="preferredDays" value="saturday">
+                                            <span>Sat</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="preferredTimeSlot">Preferred Time Slot (IST) *</label>
+                                    <select id="preferredTimeSlot" name="preferredTimeSlot" required>
+                                        <option value="">Select preferred time</option>
+                                        <option value="early-morning">Early Morning (6 AM - 8 AM IST)</option>
+                                        <option value="morning">Morning (8 AM - 12 PM IST)</option>
+                                        <option value="afternoon">Afternoon (12 PM - 4 PM IST)</option>
+                                        <option value="evening">Evening (4 PM - 7 PM IST)</option>
+                                        <option value="night">Night (7 PM - 9 PM IST)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="startDate">Preferred Start Date</label>
+                                    <input type="date" id="startDate" name="startDate">
+                                </div>
+                            </div>
+
+                            <div class="payment-section">
+                                <h3>Payment Information</h3>
+                                
+                                <div class="payment-summary">
+                                    <div class="summary-item">
+                                        <span>Selected Package:</span>
+                                        <span id="selectedPackageDisplay">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Format:</span>
+                                        <span id="selectedFormatDisplay">-</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Specialty Fees:</span>
+                                        <span id="specialtyFeesDisplay">₹0</span>
+                                    </div>
+                                    <div class="summary-item total">
+                                        <span>Total Amount:</span>
+                                        <span id="totalAmountDisplay">₹0</span>
+                                    </div>
+                                </div>
+
+                                <div class="payment-options">
+                                    <h4>Payment Method</h4>
+                                    <div class="radio-group payment-methods">
+                                        <label class="radio-option">
+                                            <input type="radio" name="paymentMethod" value="card" required checked>
+                                            <span class="radio-custom"></span>
+                                            <i class="fas fa-credit-card"></i>
+                                            Credit/Debit Card (Stripe)
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="paymentMethod" value="upi" required>
+                                            <span class="radio-custom"></span>
+                                            <i class="fas fa-mobile-alt"></i>
+                                            UPI (Google Pay, PhonePe, Paytm)
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="paymentMethod" value="bank" required>
+                                            <span class="radio-custom"></span>
+                                            <i class="fas fa-university"></i>
+                                            Bank Transfer (Manual)
+                                        </label>
+                                    </div>
+                                    
+                                    <!-- Stripe Card Element Container -->
+                                    <div id="stripe-card-section" class="stripe-section">
+                                        <div class="payment-card-container">
+                                            <label for="card-element">Credit or Debit Card</label>
+                                            <div id="card-element">
+                                                <!-- Stripe Elements will create form elements here -->
+                                            </div>
+                                            <div id="card-errors" class="error-message" role="alert"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- UPI Payment Section -->
+                                    <div id="upi-payment-section" class="upi-section" style="display: none;">
+                                        <div class="upi-info">
+                                            <h5><i class="fas fa-mobile-alt"></i> UPI Payment</h5>
+                                            <p>Pay instantly using any UPI app - Google Pay, PhonePe, Paytm, BHIM, or any bank UPI app.</p>
+                                            <div class="upi-apps">
+                                                <span class="upi-app">📱 Google Pay</span>
+                                                <span class="upi-app">💳 PhonePe</span>
+                                                <span class="upi-app">🏦 Paytm</span>
+                                                <span class="upi-app">💰 BHIM</span>
+                                            </div>
+                                            <p class="upi-note"><strong>Note:</strong> You'll be redirected to your UPI app to complete the payment.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bank Transfer Instructions -->
+                                    <div id="bank-transfer-section" class="bank-transfer-section" style="display: none;">
+                                        <div class="bank-info">
+                                            <h5><i class="fas fa-info-circle"></i> Bank Transfer Instructions</h5>
+                                            <p>After submitting this form, you will receive an email with our bank details and your unique reference number. Payment must be completed within 48 hours to secure your slot.</p>
+                                            <div class="bank-details-preview">
+                                                <strong>Bank:</strong> FrenchTutor Education Services<br>
+                                                <strong>Processing Time:</strong> 1-2 business days<br>
+                                                <strong>Reference:</strong> Will be provided via email
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="terms-section">
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="newsletter" value="yes">
+                                        <span class="checkmark"></span>
+                                        Send me French learning tips and course updates
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="terms" required>
+                                        <span class="checkmark"></span>
+                                        I agree to the terms and conditions, privacy policy, and cancellation policy *
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="confirmation" required>
+                                        <span class="checkmark"></span>
+                                        I confirm that all information provided is accurate *
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="step-buttons">
+                                <button type="button" class="btn btn-secondary" id="prevStep2">Previous</button>
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    <i class="fas fa-lock"></i>
+                                    Complete Registration
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="registration-benefits">
+            <div class="container">
+                <h2>What You Get When You Register</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Expert Instruction</h3>
+                        <p>Learn from certified French instructors with years of experience</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Flexible Scheduling</h3>
+                        <p>Schedule lessons that fit your busy lifestyle with easy rescheduling</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your advancement with regular assessments and feedback</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-headset"></i>
+                        <h3>Ongoing Support</h3>
+                        <p>Get help whenever you need it with our dedicated student support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🇫🇷 FrenchTutor</h3>
+                    <p>Making French learning accessible, enjoyable, and effective for everyone.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="classes.html">Classes</a></li>
+                        <li><a href="demo.html">Book Demo</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> hello@frenchtutor.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FrenchTutor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

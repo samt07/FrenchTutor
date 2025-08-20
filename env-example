@@ -1,0 +1,25 @@
+# Stripe Configuration
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key_here
+STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key_here
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
+
+# Server Configuration
+PORT=3001
+NODE_ENV=development
+
+# Email Configuration (using Gmail as example)
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM="FrenchTutor <noreply@frenchtutor.com>"
+
+# Business Information
+BUSINESS_NAME="FrenchTutor"
+BUSINESS_EMAIL="hello@frenchtutor.com"
+BUSINESS_PHONE="+1 (555) 123-4567"
+
+# Frontend URL (for CORS and redirects)
+FRONTEND_URL=http://localhost:3001
+
+# Database (optional - using JSON files for simplicity)
+DATA_DIR=./data 

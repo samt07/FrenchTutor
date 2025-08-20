@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Happy Birthday! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: confetti-fall linear infinite;
+            opacity: 0.8;
+        }
+
+        .confetti:nth-child(1) { background: #ff69b4; animation-delay: -0.2s; left: 10%; animation-duration: 3s; }
+        .confetti:nth-child(2) { background: #00bfff; animation-delay: -0.4s; left: 20%; animation-duration: 2.5s; }
+        .confetti:nth-child(3) { background: #ffd700; animation-delay: -0.6s; left: 30%; animation-duration: 3.5s; }
+        .confetti:nth-child(4) { background: #ff6347; animation-delay: -0.8s; left: 40%; animation-duration: 2.8s; }
+        .confetti:nth-child(5) { background: #9370db; animation-delay: -1s; left: 50%; animation-duration: 3.2s; }
+        .confetti:nth-child(6) { background: #32cd32; animation-delay: -1.2s; left: 60%; animation-duration: 2.7s; }
+        .confetti:nth-child(7) { background: #ff1493; animation-delay: -1.4s; left: 70%; animation-duration: 3.1s; }
+        .confetti:nth-child(8) { background: #00ced1; animation-delay: -1.6s; left: 80%; animation-duration: 2.9s; }
+        .confetti:nth-child(9) { background: #ffa500; animation-delay: -1.8s; left: 90%; animation-duration: 3.3s; }
+        .confetti:nth-child(10) { background: #ff69b4; animation-delay: -2s; left: 15%; animation-duration: 2.6s; }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating elements */
+        .floating {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating:nth-child(2) { top: 60%; left: 80%; animation-delay: -2s; }
+        .floating:nth-child(3) { top: 40%; left: 90%; animation-delay: -4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Main container */
+        .surprise-container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .birthday-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        .surprise-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4; }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4; }
+        }
+
+        .birthday-message {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin: 2rem 0;
+            opacity: 0.9;
+        }
+
+        .french-message {
+            font-style: italic;
+            color: #ffd700;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+        }
+
+        .gift-box {
+            font-size: 3rem;
+            margin: 2rem 0;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        .launch-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            color: #333;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 2rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .launch-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .launch-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .surprise-text {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        .hearts {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            margin: 0 0.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1); }
+        }
+
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .surprise-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .surprise-container h1 {
+                font-size: 2.2rem;
+            }
+            
+            .birthday-message {
+                font-size: 1.1rem;
+            }
+            
+            .launch-button {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Elements -->
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating">🎈</div>
+    <div class="floating">🎉</div>
+    <div class="floating">🇫🇷</div>
+
+    <!-- Main Surprise Container -->
+    <div class="surprise-container" id="surpriseContainer">
+        <div class="birthday-emoji">🎂</div>
+        <h1>Joyeux Anniversaire!</h1>
+        <div class="birthday-message">
+            Dear Amazing French Tutor,<br>
+            <span class="hearts">💕</span> Happy Birthday! <span class="hearts">💕</span>
+        </div>
+        
+        <div class="french-message">
+            "Un cadeau spécial pour une professeure extraordinaire"<br>
+            <small>(A special gift for an extraordinary teacher)</small>
+        </div>
+
+        <div class="gift-box">🎁</div>
+        
+        <div class="surprise-text">
+            I've created something special just for you...
+        </div>
+
+        <div class="birthday-message">
+            Your very own <strong>professional French tutoring website</strong>!<br>
+            Complete with online payments, student registration,<br>
+            and everything you need to grow your teaching business.
+        </div>
+
+        <div class="french-message">
+            "Bonne chance avec votre nouvelle aventure!"<br>
+            <small>(Good luck with your new adventure!)</small>
+        </div>
+
+        <button class="launch-button" onclick="launchWebsite()">
+            🚀 Launch My Website! 🌟
+        </button>
+
+        <div style="margin-top: 2rem; opacity: 0.8;">
+            <small>Made with <span class="hearts">❤️</span> and lots of coding magic</small>
+        </div>
+    </div>
+
+    <script>
+        // Add more confetti dynamically
+        function createConfetti() {
+            const colors = ['#ff69b4', '#00bfff', '#ffd700', '#ff6347', '#9370db', '#32cd32', '#ff1493', '#00ced1', '#ffa500'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Launch website with celebration
+        function launchWebsite() {
+            // Add extra confetti burst
+            createConfetti();
+            
+            // Play celebration animation
+            const container = document.getElementById('surpriseContainer');
+            container.classList.add('fade-out');
+            
+            // Redirect to main website after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Initialize extra confetti on load
+        window.addEventListener('load', () => {
+            setTimeout(createConfetti, 500);
+        });
+
+        // Add sparkle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#ffd700';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        });
+
+        // Add sparkle keyframe
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                100% { transform: scale(1) rotate(180deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Demo - FrenchTutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🇫🇷 FrenchTutor</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="classes.html" class="nav-link">Classes</a></li>
+                <li class="nav-item"><a href="demo.html" class="nav-link active">Book Demo</a></li>
+                <li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Book Your Free Demo Lesson</h1>
+                <p>Experience our teaching style with a complimentary 30-minute French lesson</p>
+            </div>
+        </section>
+
+        <section class="demo-benefits">
+            <div class="container">
+                <h2>What You'll Get in Your Demo</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Personalized Assessment</h3>
+                        <p>We'll evaluate your current French level and identify your learning goals to create a customized learning plan.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3>Teaching Style Preview</h3>
+                        <p>Experience our interactive teaching methods and see how we make learning French engaging and effective.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <h3>Learning Roadmap</h3>
+                        <p>Receive a personalized learning roadmap with recommendations for your French learning journey.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Free Resources</h3>
+                        <p>Get access to exclusive learning materials and resources to start practicing immediately after your demo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-form-section">
+            <div class="container">
+                <div class="form-wrapper">
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Schedule Your Demo</h2>
+                            <p>Choose a time that works best for you. All sessions are conducted via video call.</p>
+                        </div>
+                        
+                        <form class="demo-form" id="demoForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="frenchLevel">Current French Level *</label>
+                                <select id="frenchLevel" name="frenchLevel" required>
+                                    <option value="">Please select your level</option>
+                                    <option value="complete-beginner">Complete Beginner (Never studied French)</option>
+                                    <option value="beginner">Beginner (A1)</option>
+                                    <option value="elementary">Elementary (A2)</option>
+                                    <option value="intermediate">Intermediate (B1)</option>
+                                    <option value="upper-intermediate">Upper Intermediate (B2)</option>
+                                    <option value="advanced">Advanced (C1)</option>
+                                    <option value="proficient">Proficient (C2)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="preferredDate">Preferred Date *</label>
+                                    <input type="date" id="preferredDate" name="preferredDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="preferredTime">Preferred Time (IST) *</label>
+                                    <select id="preferredTime" name="preferredTime" required>
+                                        <option value="">Select a time</option>
+                                        <option value="08:00">8:00 AM IST</option>
+                                        <option value="09:00">9:00 AM IST</option>
+                                        <option value="10:00">10:00 AM IST</option>
+                                        <option value="11:00">11:00 AM IST</option>
+                                        <option value="12:00">12:00 PM IST</option>
+                                        <option value="13:00">1:00 PM IST</option>
+                                        <option value="14:00">2:00 PM IST</option>
+                                        <option value="15:00">3:00 PM IST</option>
+                                        <option value="16:00">4:00 PM IST</option>
+                                        <option value="17:00">5:00 PM IST</option>
+                                        <option value="18:00">6:00 PM IST</option>
+                                        <option value="19:00">7:00 PM IST</option>
+                                        <option value="20:00">8:00 PM IST</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="learningGoals">What are your French learning goals?</label>
+                                <textarea id="learningGoals" name="learningGoals" rows="4" placeholder="Tell us what you hope to achieve with French lessons..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hearAbout">How did you hear about us?</label>
+                                <select id="hearAbout" name="hearAbout">
+                                    <option value="">Please select</option>
+                                    <option value="google-search">Google Search</option>
+                                    <option value="social-media">Social Media</option>
+                                    <option value="referral">Friend/Family Referral</option>
+                                    <option value="online-ad">Online Advertisement</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <span class="checkmark"></span>
+                                    I'd like to receive French learning tips and updates via email
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the terms and conditions and privacy policy *
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book My Free Demo
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="form-sidebar">
+                        <div class="sidebar-card">
+                            <h3><i class="fas fa-clock"></i> Quick Details</h3>
+                            <ul>
+                                <li>✓ 30-minute session</li>
+                                <li>✓ Completely free</li>
+                                <li>✓ Via video call</li>
+                                <li>✓ No commitment required</li>
+                                <li>✓ Personalized assessment</li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-card">
+                            <h3><i class="fas fa-headset"></i> Need Help?</h3>
+                            <p>Have questions about booking your demo? We're here to help!</p>
+                            <div class="contact-info">
+                                <p><i class="fas fa-envelope"></i> hello@frenchtutor.com</p>
+                                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-card">
+                            <h3><i class="fas fa-star"></i> Student Success</h3>
+                            <blockquote>
+                                "The demo lesson convinced me that this was the right choice. Marie's teaching style is perfect for my learning needs!"
+                                <cite>- Alex Thompson</cite>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-process">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Book Your Slot</h3>
+                            <p>Fill out the form and choose a convenient time for your demo lesson.</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Get Confirmation</h3>
+                            <p>Receive an email confirmation with video call details and preparation tips.</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Attend Your Demo</h3>
+                            <p>Join the video call and experience our interactive French teaching method.</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Get Your Plan</h3>
+                            <p>Receive a personalized learning plan and decide if you'd like to continue.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🇫🇷 FrenchTutor</h3>
+                    <p>Making French learning accessible, enjoyable, and effective for everyone.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="classes.html">Classes</a></li>
+                        <li><a href="demo.html">Book Demo</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> hello@frenchtutor.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FrenchTutor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

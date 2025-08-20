@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - FrenchTutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <span class="logo">🇫🇷</span>
+                    FrenchTutor
+                </a>
+            </div>
+            <div class="navbar-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="classes.html" class="nav-link">Classes</a>
+                <a href="register.html" class="nav-link">Register</a>
+                <a href="student-portal.html" class="nav-link active">Student Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="student-portal">
+        <!-- Login Section (shown when not logged in) -->
+        <section id="loginSection" class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="login-header">
+                        <h1><i class="fas fa-user-circle"></i> Student Portal</h1>
+                        <p>Access your French lessons and manage your subscription</p>
+                    </div>
+
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subscriptionId">Subscription ID</label>
+                            <input type="text" id="subscriptionId" name="subscriptionId" placeholder="sub_1ABC123..." required>
+                            <p class="help-text">Find your Subscription ID in your welcome email</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Access My Portal
+                        </button>
+                    </form>
+
+                    <div class="login-help">
+                        <p><strong>Need help?</strong></p>
+                        <ul>
+                            <li>Your Subscription ID is in your welcome email</li>
+                            <li>Use the same email you registered with</li>
+                            <li>Contact us if you can't find your details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section (shown when logged in) -->
+        <section id="dashboardSection" class="dashboard-section" style="display: none;">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1>Welcome back, <span id="studentName">Student</span>! 🎉</h1>
+                    <button id="logoutBtn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Subscription Status Card -->
+                    <div class="dashboard-card subscription-status">
+                        <div class="card-header">
+                            <h3><i class="fas fa-credit-card"></i> Subscription Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="status-info">
+                                <div class="status-badge" id="statusBadge">Active</div>
+                                <div class="plan-info">
+                                    <h4 id="planName">Elementary School Plan</h4>
+                                    <p id="planPrice">₹3,500/month</p>
+                                </div>
+                            </div>
+                            <div class="billing-info">
+                                <p><strong>Next billing date:</strong> <span id="nextBilling">January 15, 2024</span></p>
+                                <p><strong>Started:</strong> <span id="startDate">December 15, 2023</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="dashboard-card quick-actions">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="action-buttons">
+                                <button class="action-btn" id="updatePaymentBtn">
+                                    <i class="fas fa-credit-card"></i>
+                                    Update Payment Method
+                                </button>
+                                <button class="action-btn" id="downloadInvoiceBtn">
+                                    <i class="fas fa-download"></i>
+                                    Download Latest Invoice
+                                </button>
+                                <button class="action-btn" id="scheduleClassBtn">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    Schedule a Class
+                                </button>
+                                <button class="action-btn danger" id="cancelSubscriptionBtn">
+                                    <i class="fas fa-times-circle"></i>
+                                    Cancel Subscription
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Card -->
+                    <div class="dashboard-card progress-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Your Progress</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="progress-stats">
+                                <div class="stat">
+                                    <div class="stat-number" id="classesAttended">12</div>
+                                    <div class="stat-label">Classes Completed</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number" id="hoursLearned">18</div>
+                                    <div class="stat-label">Hours Learned</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number" id="currentLevel">A2</div>
+                                    <div class="stat-label">Current Level</div>
+                                </div>
+                            </div>
+                            <div class="progress-message">
+                                <p id="progressMessage">Great job! You're making excellent progress in your French journey. 🇫🇷</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Card -->
+                    <div class="dashboard-card recent-activity">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list" id="activityList">
+                                <div class="activity-item">
+                                    <div class="activity-icon payment">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Payment Successful</h4>
+                                        <p>Monthly subscription fee of ₹3,500 processed</p>
+                                        <span class="activity-date">2 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon class">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Class Completed</h4>
+                                        <p>French Conversation Practice - Level A2</p>
+                                        <span class="activity-date">3 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon achievement">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Achievement Unlocked</h4>
+                                        <p>Completed 10 consecutive classes</p>
+                                        <span class="activity-date">1 week ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>FrenchTutor</h4>
+                    <p>Your gateway to mastering French with personalized lessons and expert guidance.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: hello@frenchtutor.com</p>
+                    <p>Phone: +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FrenchTutor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="student-portal.js"></script>
+</body>
+</html> 
