@@ -16,6 +16,9 @@ const dataService = require('./services/data');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust proxy for deployment platforms (Railway, Heroku, etc.)
+app.set('trust proxy', true);
+
 // Security middleware - configured for Stripe integration
 app.use(helmet({
     contentSecurityPolicy: {
