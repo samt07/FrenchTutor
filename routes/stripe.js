@@ -8,11 +8,24 @@ const router = express.Router();
 
 // Stripe Price IDs for monthly subscriptions
 // Debug environment variables
-console.log('Environment variables check - First environment:', process.env.NODE_ENV);
+console.log('=== RAILWAY ENVIRONMENT DEBUGGING ===');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Process platform:', process.platform);
+console.log('');
+console.log('STRIPE Variables Check:');
+console.log('TEST_VAR:', process.env.TEST_VAR);
+console.log('STRIPE_SECRET_KEY exists:', !!process.env.STRIPE_SECRET_KEY);
+console.log('STRIPE_SECRET_KEY value:', process.env.STRIPE_SECRET_KEY ? `${process.env.STRIPE_SECRET_KEY.substring(0, 10)}...` : 'undefined');
+console.log('STRIPE_PUBLISHABLE_KEY exists:', !!process.env.STRIPE_PUBLISHABLE_KEY);
 console.log('STRIPE_ELEMENTARY_PRICE_ID:', process.env.STRIPE_ELEMENTARY_PRICE_ID);
 console.log('STRIPE_MIDDLE_PRICE_ID:', process.env.STRIPE_MIDDLE_PRICE_ID);
 console.log('STRIPE_HIGH_PRICE_ID:', process.env.STRIPE_HIGH_PRICE_ID);
-console.log('All env keys starting with STRIPE:', Object.keys(process.env).filter(key => key.startsWith('STRIPE')));
+console.log('');
+console.log('Environment Summary:');
+console.log('Total env vars:', Object.keys(process.env).length);
+console.log('All STRIPE vars found:', Object.keys(process.env).filter(key => key.startsWith('STRIPE')));
+console.log('First 20 env var names:', Object.keys(process.env).sort().slice(0, 20));
+console.log('=== END DEBUGGING ===');
 
 const SUBSCRIPTION_PRICES = {
     'elementary': process.env.STRIPE_ELEMENTARY_PRICE_ID,
