@@ -5,14 +5,25 @@ let transporter;
 
 function createTransporter() {
     if (process.env.EMAIL_SERVICE && process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+        // Use explicit SMTP settings for better Railway compatibility
         transporter = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE,
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false, // Use STARTTLS
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASSWORD
-            }
+            },
+            connectionTimeout: 60000, // 60 seconds
+            greetingTimeout: 30000, // 30 seconds
+            socketTimeout: 60000, // 60 seconds
+            pool: true, // Use connection pooling
+            maxConnections: 3,
+            maxMessages: 10,
+            rateDelta: 1000, // 1 second between messages
+            rateLimit: 5 // max 5 messages per second
         });
-        console.log('📧 Email service initialized with', process.env.EMAIL_SERVICE);
+        console.log('📧 Email service initialized with explicit Gmail SMTP settings');
     } else {
         console.log('📧 Email service not configured - emails will be logged to console');
         transporter = nodemailer.createTransport({
@@ -368,8 +379,11 @@ async function sendBankTransferInstructions(registrationData, registrationId, am
     return await sendEmail(mailOptions);
 }
 
-// Generic email sender
-async function sendEmail(mailOptions) {
+// Generic email sender with retry logic
+async function sendEmail(mailOptions, retryCount = 0) {
+    const maxRetries = 3;
+    const retryDelay = 2000 * Math.pow(2, retryCount); // Exponential backoff: 2s, 4s, 8s
+    
     try {
         if (!transporter) {
             console.log('⚠️ Email not configured, logging email content:', {
@@ -384,21 +398,34 @@ async function sendEmail(mailOptions) {
         console.log('📧 Email sent successfully:', {
             to: mailOptions.to,
             subject: mailOptions.subject,
-            messageId: info.messageId
+            messageId: info.messageId,
+            attempt: retryCount + 1
         });
 
         return { success: true, messageId: info.messageId };
     } catch (error) {
-        console.error('📧 Email sending failed:', error);
+        console.error(`📧 Email sending failed (attempt ${retryCount + 1}/${maxRetries + 1}):`, error.message);
         
-        // Log email content if sending fails
-        console.log('Email that failed to send:', {
+        // Check if error is retryable (connection issues, timeouts)
+        const retryableErrors = ['ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND', 'ECONNREFUSED', 'CONN'];
+        const isRetryable = retryableErrors.some(code => error.code === code || error.message.includes(code));
+        
+        if (retryCount < maxRetries && isRetryable) {
+            console.log(`🔄 Retrying email send in ${retryDelay}ms...`);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            return await sendEmail(mailOptions, retryCount + 1);
+        }
+        
+        // Log email content if all retries failed
+        console.log('Email that failed to send after all retries:', {
             to: mailOptions.to,
             subject: mailOptions.subject,
-            text: mailOptions.text?.substring(0, 200) + '...'
+            text: mailOptions.text?.substring(0, 200) + '...',
+            finalError: error.message,
+            totalAttempts: retryCount + 1
         });
         
-        return { success: false, error: error.message };
+        return { success: false, error: error.message, attempts: retryCount + 1 };
     }
 }
 
