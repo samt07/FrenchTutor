@@ -451,7 +451,8 @@ async function processStripePayment(registrationData, amount) {
         
 Your French exam preparation subscription is now active! Here's what happens next:
 
-✅ Confirmation email sent to ${registrationData.email}
+✅ Confirmation email sent to ${registrationData.email} (check your inbox!)
+✅ Student Portal Login: Use your email + subscription ID from the email
 ✅ Sandy will contact you within 24 hours to schedule your first lesson
 ✅ Monthly subscription: ₹${registrationData.gradeLevel === 'elementary' ? '3,500' : registrationData.gradeLevel === 'middle' ? '4,500' : '5,500'}/month
 ✅ Access to 4 classes per month + exam preparation materials

@@ -244,12 +244,24 @@ async function sendSubscriptionConfirmation(registrationData, registrationId, mo
                 <p><strong>Start Date:</strong> ${registrationData.startDate || 'As soon as possible'}</p>
             </div>
 
+            <div class="login-info" style="background: #e0e7ff; border: 2px solid #3b82f6; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center;">
+                <h3>🔐 Your Student Portal Access</h3>
+                <p><strong>Login to your personal dashboard at:</strong></p>
+                <p><a href="${process.env.FRONTEND_URL || 'https://frenchtutor-production.up.railway.app'}/student-portal.html" style="font-size: 18px; color: #3b82f6; text-decoration: none; font-weight: bold;">Student Portal Login</a></p>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Your Login Credentials:</strong></p>
+                    <p><strong>Email:</strong> ${registrationData.email}</p>
+                    <p><strong>Subscription ID:</strong> ${subscriptionId}</p>
+                </div>
+                <p style="color: #6b7280; font-size: 14px;">💡 Save these credentials - you'll use them to access your lessons, progress, and billing info!</p>
+            </div>
+
             <h3>📚 What Happens Next?</h3>
             <ol>
+                <li><strong>Access Your Student Portal:</strong> Login using the credentials above</li>
                 <li><strong>Schedule Your First Lesson:</strong> We'll contact you within 24 hours to schedule your first lesson</li>
-                <li><strong>Receive Learning Materials:</strong> Get access to grade-appropriate French learning resources</li>
-                <li><strong>Meet Your Instructor:</strong> Connect with our experienced French teachers</li>
-                <li><strong>Monthly Progress Tracking:</strong> Regular assessments and feedback on your learning progress</li>
+                <li><strong>Track Your Progress:</strong> Use the portal to view your learning progress and upcoming lessons</li>
+                <li><strong>Meet Your Instructor:</strong> Connect with Sandhya and start your French exam preparation journey</li>
             </ol>
 
             <div class="details">
