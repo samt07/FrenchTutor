@@ -656,4 +656,74 @@ async function handleSubscriptionCancelled(subscription) {
     }
 }
 
+// Student Portal Login API
+router.post('/student-login', [
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('subscriptionId').matches(/^sub_/).withMessage('Valid subscription ID is required')
+], async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide valid email and subscription ID'
+            });
+        }
+
+        const { email, subscriptionId } = req.body;
+
+        // Check local registration data first
+        const dataService = require('../services/data');
+        const registrations = await dataService.searchRegistrations({ email: email });
+        
+        const registration = registrations.find(reg => 
+            reg.subscriptionId === subscriptionId || 
+            reg.email === email
+        );
+
+        if (!registration) {
+            return res.status(400).json({
+                success: false,
+                message: 'No registration found with these credentials'
+            });
+        }
+
+        // Verify subscription with Stripe (optional - for real-time status)
+        let subscriptionStatus = 'active';
+        try {
+            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+            subscriptionStatus = subscription.status;
+        } catch (stripeError) {
+            console.log('Stripe verification failed, using local data:', stripeError.message);
+        }
+
+        // Return student and subscription data
+        res.json({
+            success: true,
+            student: {
+                firstName: registration.firstName,
+                lastName: registration.lastName,
+                email: registration.email,
+                gradeLevel: registration.gradeLevel,
+                registrationId: registration.id,
+                registrationDate: registration.registrationDate
+            },
+            subscription: {
+                id: subscriptionId,
+                status: subscriptionStatus,
+                gradeLevel: registration.gradeLevel,
+                monthlyAmount: registration.amount,
+                planName: `${registration.gradeLevel.charAt(0).toUpperCase() + registration.gradeLevel.slice(1)} School Plan`
+            }
+        });
+
+    } catch (error) {
+        console.error('Student login error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error. Please try again later.'
+        });
+    }
+});
+
 module.exports = router; 
