@@ -279,12 +279,13 @@ router.post('/create-upi-payment-intent', [
             amount: amount * 100, // Stripe expects paise for INR
             currency: 'inr',
             payment_method_types: ['upi'],
-            description: `French lessons - ${registrationData.classFormat} ${registrationData.lessonCount} lessons`,
+            description: `French Monthly Subscription - ${registrationData.gradeLevel} grade (4 classes per month)`,
             metadata: {
                 customerEmail: registrationData.email,
                 customerName: `${registrationData.firstName} ${registrationData.lastName}`,
-                classFormat: registrationData.classFormat,
-                lessonCount: registrationData.lessonCount,
+                gradeLevel: registrationData.gradeLevel,
+                subscriptionType: 'monthly',
+                classesPerMonth: '4',
                 specialties: JSON.stringify(registrationData.specialties || [])
             },
             receipt_email: registrationData.email
@@ -531,12 +532,13 @@ async function processUPIPayment(req, res, registrationData, amount) {
             amount: amount * 100, // Stripe expects paise for INR
             currency: 'inr',
             payment_method_types: ['upi'],
-            description: `French Monthly Subscription - ${registrationData.gradeLevel} grade level`,
+            description: `French Monthly Subscription - ${registrationData.gradeLevel} grade (4 classes per month)`,
             metadata: {
                 customerEmail: registrationData.email,
                 customerName: `${registrationData.firstName} ${registrationData.lastName}`,
                 gradeLevel: registrationData.gradeLevel,
-                subscriptionType: 'monthly'
+                subscriptionType: 'monthly',
+                classesPerMonth: '4'
             },
             receipt_email: registrationData.email
         });
