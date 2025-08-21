@@ -458,9 +458,13 @@ Your French exam preparation subscription is now active! Here's what happens nex
 ✅ Access to 4 classes per month + exam preparation materials
 
 Questions? WhatsApp us at +91 98765 43210`);
-        document.getElementById('registrationForm').reset();
-        showStep(1);
-        currentStep = 1;
+        
+        // Reset form and change step after showing message
+        setTimeout(() => {
+            document.getElementById('registrationForm').reset();
+            showStep(1);
+            currentStep = 1;
+        }, 8000); // 8 seconds delay
     } else {
         throw new Error(confirmResult.message || 'Subscription creation failed');
     }
@@ -540,9 +544,13 @@ Your French exam preparation registration is complete! Here's what happens next:
 ✅ Sandy will contact you after payment confirmation
 
 Questions? WhatsApp us at +91 98765 43210`);
-        document.getElementById('registrationForm').reset();
-        showStep(1);
-        currentStep = 1;
+        
+        // Reset form and change step after showing message
+        setTimeout(() => {
+            document.getElementById('registrationForm').reset();
+            showStep(1);
+            currentStep = 1;
+        }, 8000); // 8 seconds delay
     } else {
         throw new Error(result.message || 'Bank transfer registration failed');
     }
@@ -736,19 +744,25 @@ function showPaymentSuccess(message) {
         </div>
     `;
     
-    // Add to the form
+    // Add to the form (try step3 first, then form container)
     const step3 = document.getElementById('step3');
+    const formContainer = document.querySelector('.registration-form') || document.body;
+    
     if (step3) {
         step3.appendChild(successDiv);
-        
-        // Scroll to success message
-        successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Auto-hide after 10 seconds
-        setTimeout(() => {
-            successDiv.remove();
-        }, 10000);
+    } else {
+        formContainer.appendChild(successDiv);
     }
+    
+    // Scroll to success message
+    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Auto-hide after 15 seconds (increased time)
+    setTimeout(() => {
+        if (successDiv.parentNode) {
+            successDiv.remove();
+        }
+    }, 15000);
 }
 
 // Enhanced Error Display

@@ -697,23 +697,29 @@ router.post('/student-login', [
             console.log('Stripe verification failed, using local data:', stripeError.message);
         }
 
+        // Safe handling of grade level
+        const gradeLevel = registration.gradeLevel || 'elementary';
+        const planName = gradeLevel ? 
+            `${gradeLevel.charAt(0).toUpperCase() + gradeLevel.slice(1)} School Plan` : 
+            'French School Plan';
+
         // Return student and subscription data
         res.json({
             success: true,
             student: {
-                firstName: registration.firstName,
-                lastName: registration.lastName,
+                firstName: registration.firstName || 'Student',
+                lastName: registration.lastName || '',
                 email: registration.email,
-                gradeLevel: registration.gradeLevel,
-                registrationId: registration.id,
-                registrationDate: registration.registrationDate
+                gradeLevel: gradeLevel,
+                registrationId: registration.id || 'N/A',
+                registrationDate: registration.registrationDate || new Date().toISOString()
             },
             subscription: {
                 id: subscriptionId,
                 status: subscriptionStatus,
-                gradeLevel: registration.gradeLevel,
-                monthlyAmount: registration.amount,
-                planName: `${registration.gradeLevel.charAt(0).toUpperCase() + registration.gradeLevel.slice(1)} School Plan`
+                gradeLevel: gradeLevel,
+                monthlyAmount: registration.amount || 0,
+                planName: planName
             }
         });
 
