@@ -13,6 +13,9 @@ pids
 *.pid
 *.seed
 
+#gmail app password
+gmail app password.txt
+
 # Coverage directory used by tools like istanbul
 coverage/
 
