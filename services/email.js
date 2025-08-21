@@ -84,7 +84,7 @@ async function sendDemoConfirmation(demoData, bookingId) {
         </div>
         <div class="footer">
             <p>À bientôt! (See you soon!)<br>
-            <strong>Marie Dubois</strong><br>
+            <strong>Sandhya Prasanna (Sandy)</strong><br>
             ${process.env.BUSINESS_NAME}<br>
             ${process.env.BUSINESS_EMAIL} | ${process.env.BUSINESS_PHONE}</p>
         </div>
@@ -150,7 +150,7 @@ async function sendRegistrationConfirmation(registrationData, registrationId, am
             <ol>
                 <li><strong>Schedule Your First Lesson:</strong> We'll contact you within 24 hours to schedule your first lesson</li>
                 <li><strong>Receive Learning Materials:</strong> Get access to exclusive French learning resources</li>
-                <li><strong>Meet Your Instructor:</strong> Connect with Marie and start your personalized learning journey</li>
+                <li><strong>Meet Your Instructor:</strong> Connect with Sandy and start your personalized learning journey</li>
                 <li><strong>Track Your Progress:</strong> Regular assessments and feedback to ensure you're improving</li>
             </ol>
 
@@ -176,7 +176,7 @@ async function sendRegistrationConfirmation(registrationData, registrationId, am
         from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
         to: registrationData.email,
         subject: `🎉 Welcome to FrenchTutor! Your Registration is Complete`,
-        html: emailTemplate,
+        html: emailTemplate.replace('Marie Dubois & The FrenchTutor Team', 'Sandhya Prasanna (Sandy) & The FrenchTutor Team'),
         text: `Monthly Subscription Activated!\n\nRegistration ID: ${registrationId}\nSubscription: Monthly ${registrationData.gradeLevel.charAt(0).toUpperCase() + registrationData.gradeLevel.slice(1)} School Plan\nMonthly Fee: ₹${amount}\n\nYour subscription is now active! We'll contact you within 24 hours to schedule your first lesson. Questions? Reply to this email!`
     };
 
@@ -271,7 +271,7 @@ async function sendSubscriptionConfirmation(registrationData, registrationId, mo
         from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
         to: registrationData.email,
         subject: `🎉 Monthly French Subscription Activated - Welcome ${registrationData.firstName}!`,
-        html: emailTemplate,
+        html: emailTemplate.replace('Marie Dubois & The FrenchTutor Team', 'Sandhya Prasanna (Sandy) & The FrenchTutor Team'),
         text: `Monthly French Subscription Activated!\n\nRegistration ID: ${registrationId}\nSubscription ID: ${subscriptionId}\nGrade Level: ${registrationData.gradeLevel.charAt(0).toUpperCase() + registrationData.gradeLevel.slice(1)} School\nMonthly Fee: ₹${monthlyAmount}\n\nYour monthly subscription is now active! We'll contact you within 24 hours to schedule your first lesson. Your card will be charged ₹${monthlyAmount} monthly. Questions? Reply to this email!`
     };
 

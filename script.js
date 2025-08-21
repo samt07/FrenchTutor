@@ -447,7 +447,16 @@ async function processStripePayment(registrationData, amount) {
     
     const confirmResult = await confirmResponse.json();
     if (confirmResult.success) {
-        showPaymentSuccess(confirmResult.message || 'Monthly subscription activated! Welcome to French lessons.');
+        showPaymentSuccess(`🎉 Registration Successful! 
+        
+Your French exam preparation subscription is now active! Here's what happens next:
+
+✅ Confirmation email sent to ${registrationData.email}
+✅ Sandy will contact you within 24 hours to schedule your first lesson
+✅ Monthly subscription: ₹${registrationData.gradeLevel === 'elementary' ? '3,500' : registrationData.gradeLevel === 'middle' ? '4,500' : '5,500'}/month
+✅ Access to 4 classes per month + exam preparation materials
+
+Questions? WhatsApp us at +91 98765 43210`);
         document.getElementById('registrationForm').reset();
         showStep(1);
         currentStep = 1;
@@ -520,7 +529,16 @@ async function processBankTransfer(registrationData, amount) {
     
     const result = await response.json();
     if (result.success) {
-        showPaymentSuccess(`Registration successful! Please check your email for bank transfer instructions. Total amount: ₹${amount}`);
+        showPaymentSuccess(`🎉 Registration Successful! 
+
+Your French exam preparation registration is complete! Here's what happens next:
+
+✅ Bank transfer instructions sent to ${registrationData.email}
+✅ Monthly subscription amount: ₹${amount}
+✅ Payment deadline: 48 hours to secure your slot
+✅ Sandy will contact you after payment confirmation
+
+Questions? WhatsApp us at +91 98765 43210`);
         document.getElementById('registrationForm').reset();
         showStep(1);
         currentStep = 1;
