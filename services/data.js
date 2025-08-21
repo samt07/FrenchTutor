@@ -219,10 +219,7 @@ function searchRegistrations(criteria = {}) {
             if (criteria.paymentStatus && registration.paymentStatus !== criteria.paymentStatus) {
                 return false;
             }
-            if (criteria.classFormat && registration.classFormat !== criteria.classFormat) {
-                return false;
-            }
-            if (criteria.package && registration.package !== criteria.package) {
+            if (criteria.gradeLevel && registration.gradeLevel !== criteria.gradeLevel) {
                 return false;
             }
             return true;
@@ -247,15 +244,15 @@ function getStatistics() {
             totalRevenue: registrations
                 .filter(r => r.paymentStatus === 'completed')
                 .reduce((sum, r) => sum + (r.amount || 0), 0),
-            packageBreakdown: {
-                '4-lessons': registrations.filter(r => r.package === '4-lessons').length,
-                '8-lessons': registrations.filter(r => r.package === '8-lessons').length,
-                '16-lessons': registrations.filter(r => r.package === '16-lessons').length
+            gradeLevelBreakdown: {
+                'elementary': registrations.filter(r => r.gradeLevel === 'elementary').length,
+                'middle': registrations.filter(r => r.gradeLevel === 'middle').length,
+                'high': registrations.filter(r => r.gradeLevel === 'high').length
             },
-            classFormatBreakdown: {
-                'private': registrations.filter(r => r.classFormat === 'private').length,
-                'group': registrations.filter(r => r.classFormat === 'group').length,
-                'conversation': registrations.filter(r => r.classFormat === 'conversation').length
+            subscriptionBreakdown: {
+                'active': registrations.filter(r => r.paymentStatus === 'active' || r.paymentStatus === 'completed').length,
+                'pending': registrations.filter(r => r.paymentStatus === 'pending_upi' || r.paymentStatus === 'pending_bank_transfer').length,
+                'cancelled': registrations.filter(r => r.paymentStatus === 'cancelled').length
             }
         };
         

@@ -15,8 +15,8 @@ EMAIL_FROM="FrenchTutor <noreply@frenchtutor.com>"
 
 # Business Information
 BUSINESS_NAME="FrenchTutor"
-BUSINESS_EMAIL="hello@frenchtutor.com"
-BUSINESS_PHONE="+1 (555) 123-4567"
+BUSINESS_EMAIL="sandy.frenchtutor@gmail.com"
+BUSINESS_PHONE="+91 98765 43210"
 
 # Frontend URL (for CORS and redirects)
 FRONTEND_URL=http://localhost:3001

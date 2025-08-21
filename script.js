@@ -295,8 +295,7 @@ function updatePricingDisplay() {
         gradeLevelName = selectedGradeLevel.nextElementSibling.querySelector('h4').textContent;
         
         // Update display elements
-        updateDisplayElement('selectedPackageDisplay', 'Monthly Subscription');
-        updateDisplayElement('selectedFormatDisplay', gradeLevelName);
+        updateDisplayElement('selectedGradeLevelDisplay', gradeLevelName);
         updateDisplayElement('specialtyFeesDisplay', 'Included'); // Specialties included in subscription
         updateDisplayElement('totalAmountDisplay', `₹${monthlyPrice}/month`);
     }

@@ -7,25 +7,7 @@ const dataService = require('../services/data');
 const router = express.Router();
 
 // Stripe Price IDs for monthly subscriptions
-// Debug environment variables
-console.log('=== RAILWAY ENVIRONMENT DEBUGGING ===');
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('Process platform:', process.platform);
-console.log('');
-console.log('STRIPE Variables Check:');
-console.log('TEST_VAR:', process.env.TEST_VAR);
-console.log('STRIPE_SECRET_KEY exists:', !!process.env.STRIPE_SECRET_KEY);
-console.log('STRIPE_SECRET_KEY value:', process.env.STRIPE_SECRET_KEY ? `${process.env.STRIPE_SECRET_KEY.substring(0, 10)}...` : 'undefined');
-console.log('STRIPE_PUBLISHABLE_KEY exists:', !!process.env.STRIPE_PUBLISHABLE_KEY);
-console.log('STRIPE_ELEMENTARY_PRICE_ID:', process.env.STRIPE_ELEMENTARY_PRICE_ID);
-console.log('STRIPE_MIDDLE_PRICE_ID:', process.env.STRIPE_MIDDLE_PRICE_ID);
-console.log('STRIPE_HIGH_PRICE_ID:', process.env.STRIPE_HIGH_PRICE_ID);
-console.log('');
-console.log('Environment Summary:');
-console.log('Total env vars:', Object.keys(process.env).length);
-console.log('All STRIPE vars found:', Object.keys(process.env).filter(key => key.startsWith('STRIPE')));
-console.log('First 20 env var names:', Object.keys(process.env).sort().slice(0, 20));
-console.log('=== END DEBUGGING ===');
+
 
 const SUBSCRIPTION_PRICES = {
     'elementary': process.env.STRIPE_ELEMENTARY_PRICE_ID,
@@ -40,11 +22,8 @@ router.post('/register', [
     body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
     body('phone').optional().isMobilePhone().withMessage('Valid phone number is required'),
     body('frenchLevel').notEmpty().withMessage('French level is required'),
-    body('classFormat').isIn(['private', 'group', 'conversation']).withMessage('Valid class format is required'),
-    body('package').isIn(['4-lessons', '8-lessons', '16-lessons']).withMessage('Valid package is required'),
-    body('paymentMethod').isIn(['card', 'upi', 'bank']).withMessage('Valid payment method is required'),
-    body('preferredDays').isArray({ min: 1 }).withMessage('At least one preferred day is required'),
-    body('learningGoals').trim().isLength({ min: 10 }).withMessage('Learning goals must be at least 10 characters')
+    body('gradeLevel').isIn(['elementary', 'middle', 'high']).withMessage('Valid grade level is required'),
+    body('paymentMethod').isIn(['card', 'upi', 'bank']).withMessage('Valid payment method is required')
 ], async (req, res) => {
     try {
         // Check validation errors
@@ -97,12 +76,6 @@ router.post('/create-payment-intent', [
         }
 
         const { registrationData, amount } = req.body;
-        
-        console.log('=== Payment Intent Debug ===');
-        console.log('Registration Data:', JSON.stringify(registrationData, null, 2));
-        console.log('Amount:', amount);
-        console.log('Stripe Secret Key exists:', !!process.env.STRIPE_SECRET_KEY);
-        console.log('Stripe Secret Key starts with:', process.env.STRIPE_SECRET_KEY ? process.env.STRIPE_SECRET_KEY.substring(0, 7) : 'NOT SET');
 
         // Create a PaymentIntent with the order amount and currency
         const paymentIntent = await stripe.paymentIntents.create({
@@ -269,10 +242,6 @@ router.post('/create-upi-payment-intent', [
         }
 
         const { registrationData, amount } = req.body;
-        
-        console.log('=== UPI Payment Intent Debug ===');
-        console.log('Registration Data:', JSON.stringify(registrationData, null, 2));
-        console.log('Amount:', amount);
 
         // Create a PaymentIntent with UPI payment method for India
         const paymentIntent = await stripe.paymentIntents.create({
@@ -324,12 +293,8 @@ router.post('/create-subscription-intent', [
     body('registrationData.email').isEmail().withMessage('Valid email is required'),
     body('registrationData.gradeLevel').isIn(['elementary', 'middle', 'high']).withMessage('Valid grade level is required')
 ], async (req, res) => {
-    // Debug logging
-    console.log('Received create-subscription-intent request:', JSON.stringify(req.body, null, 2));
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log('Validation errors:', errors.array());
         return res.status(400).json({ 
             success: false,
             message: 'Validation failed',
@@ -339,15 +304,10 @@ router.post('/create-subscription-intent', [
 
     try {
         const { registrationData } = req.body;
-        console.log('SUBSCRIPTION_PRICES:', SUBSCRIPTION_PRICES);
-        console.log('Looking for priceId for grade level:', registrationData.gradeLevel);
         
         const priceId = SUBSCRIPTION_PRICES[registrationData.gradeLevel];
-        console.log('Found priceId:', priceId);
         
         if (!priceId) {
-            console.log('No price ID found for grade level:', registrationData.gradeLevel);
-            console.log('Available price IDs:', Object.keys(SUBSCRIPTION_PRICES));
             return res.status(400).json({ 
                 success: false,
                 error: 'Invalid grade level or missing price configuration',
@@ -431,12 +391,6 @@ router.post('/confirm-subscription', [
         }
 
         // Create the subscription
-        console.log('Creating subscription with:', {
-            customerId,
-            priceId,
-            paymentMethodId: setupIntent.payment_method
-        });
-        
         const subscription = await stripe.subscriptions.create({
             customer: customerId,
             items: [{ price: priceId }],
@@ -448,13 +402,6 @@ router.post('/confirm-subscription', [
                 customerName: `${registrationData.firstName} ${registrationData.lastName}`,
                 registrationSource: 'website'
             }
-        });
-
-        console.log('Subscription created:', {
-            id: subscription.id,
-            status: subscription.status,
-            current_period_start: subscription.current_period_start,
-            current_period_end: subscription.current_period_end
         });
 
         // Save registration data
