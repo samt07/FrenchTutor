@@ -185,12 +185,8 @@ function validateCurrentStep(step) {
     
     // Special validation for step 3 (schedule & payment)
     if (step === 3) {
-        // Check if at least one preferred day is selected
-        const preferredDays = document.querySelectorAll('input[name="preferredDays"]:checked');
-        if (preferredDays.length === 0) {
-            showError('Please select at least one preferred day');
-            isValid = false;
-        }
+        // No additional validation needed for step 3
+        // Form validation handles required fields automatically
     }
 
     return isValid;
@@ -357,13 +353,6 @@ async function handleRegistrationFormSubmission(form) {
         specialties.push(input.value);
     });
     data.specialties = specialties;
-    
-    // Get all selected preferred days
-    const preferredDays = [];
-    document.querySelectorAll('input[name="preferredDays"]:checked').forEach(input => {
-        preferredDays.push(input.value);
-    });
-    data.preferredDays = preferredDays;
     
     const paymentMethod = data.paymentMethod;
     const totalAmount = calculateTotalAmount();
