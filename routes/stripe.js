@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Stripe Price IDs for monthly subscriptions
 // Debug environment variables
-console.log('Environment variables check:');
+console.log('Environment variables check - First environment:', process.env.NODE_ENV);
 console.log('STRIPE_ELEMENTARY_PRICE_ID:', process.env.STRIPE_ELEMENTARY_PRICE_ID);
 console.log('STRIPE_MIDDLE_PRICE_ID:', process.env.STRIPE_MIDDLE_PRICE_ID);
 console.log('STRIPE_HIGH_PRICE_ID:', process.env.STRIPE_HIGH_PRICE_ID);

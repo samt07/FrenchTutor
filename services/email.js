@@ -144,7 +144,6 @@ async function sendRegistrationConfirmation(registrationData, registrationId, am
             <div class="details">
                 <h3>📅 Schedule Preferences</h3>
                 <p><strong>Preferred Days:</strong> ${registrationData.preferredDays.join(', ')}</p>
-                <p><strong>Time Slot:</strong> ${registrationData.preferredTimeSlot}</p>
                 <p><strong>Start Date:</strong> ${registrationData.startDate || 'As soon as possible'}</p>
             </div>
 
@@ -233,7 +232,6 @@ async function sendSubscriptionConfirmation(registrationData, registrationId, mo
             <div class="details">
                 <h3>📅 Your Preferences</h3>
                 <p><strong>Preferred Days:</strong> ${registrationData.preferredDays.join(', ')}</p>
-                <p><strong>Time Slot:</strong> ${registrationData.preferredTimeSlot}</p>
                 <p><strong>Start Date:</strong> ${registrationData.startDate || 'As soon as possible'}</p>
             </div>
 
