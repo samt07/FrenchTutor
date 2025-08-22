@@ -120,8 +120,7 @@ app.post('/api/book-demo', [
     body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
     body('frenchLevel').notEmpty().withMessage('French level is required'),
     body('preferredDate').isISO8601().withMessage('Valid date is required'),
-    body('preferredTime').notEmpty().withMessage('Preferred time is required'),
-    body('timezone').notEmpty().withMessage('Timezone is required')
+    body('preferredTime').notEmpty().withMessage('Preferred time is required')
 ], async (req, res) => {
     try {
         // Check validation errors
@@ -135,6 +134,9 @@ app.post('/api/book-demo', [
         }
 
         const demoData = req.body;
+        // Add default timezone since we removed timezone selection but email templates may expect it
+        demoData.timezone = 'Asia/Kolkata (IST)';
+        
         const bookingId = await dataService.saveDemoBooking(demoData);
 
         // Send confirmation email

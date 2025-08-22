@@ -313,14 +313,8 @@ function handleDemoFormSubmission(form) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     
-    // Simulate form submission
+    // Log form data for debugging
     console.log('Demo form data:', data);
-    
-    // Show success message
-    showSuccess('Thank you! Your demo lesson has been scheduled. You will receive a confirmation email shortly.');
-    
-    // Reset form
-    form.reset();
     
     // Send to backend API
     fetch('/api/book-demo', {
@@ -330,7 +324,7 @@ function handleDemoFormSubmission(form) {
     }).then(response => response.json())
       .then(result => {
           if (result.success) {
-              showSuccess(result.message);
+              showSuccess('Thank you! Your demo lesson has been scheduled. You will receive a confirmation email shortly.');
               form.reset();
           } else {
               showError(result.message || 'Error booking demo. Please try again.');
@@ -425,28 +419,28 @@ async function processStripePayment(registrationData, amount) {
     
     // Step 2: Confirm setup intent with Stripe
     const {error: confirmError, setupIntent} = await stripe.confirmCardSetup(clientSecret, {
-        payment_method: paymentMethod.id
-    });
-    
+                payment_method: paymentMethod.id
+            });
+            
     if (confirmError) {
         throw new Error(confirmError.message);
-    }
-    
+            }
+            
     // Step 3: Confirm subscription creation with backend
     const confirmResponse = await fetch('/api/confirm-subscription', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
             setupIntentId: setupIntent.id,
             paymentMethodId: paymentMethod.id,
             customerId: customerId,
             priceId: priceId,
-            registrationData
-        })
-    });
-    
-    const confirmResult = await confirmResponse.json();
-    if (confirmResult.success) {
+                    registrationData
+                })
+            });
+            
+            const confirmResult = await confirmResponse.json();
+            if (confirmResult.success) {
         showPaymentSuccess(`🎉 Registration Successful! 
         
 Your French exam preparation subscription is now active! Here's what happens next:
@@ -753,15 +747,15 @@ function showPaymentSuccess(message) {
     } else {
         formContainer.appendChild(successDiv);
     }
-    
-    // Scroll to success message
-    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
+        
+        // Scroll to success message
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
     // Auto-hide after 15 seconds (increased time)
-    setTimeout(() => {
+        setTimeout(() => {
         if (successDiv.parentNode) {
             successDiv.remove();
-        }
+    }
     }, 15000);
 }
 

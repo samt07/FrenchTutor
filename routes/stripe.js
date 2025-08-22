@@ -189,7 +189,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
     // Handle the event
     try {
-        switch (event.type) {
+    switch (event.type) {
             case 'customer.subscription.created':
                 console.log('Subscription created:', event.data.object.id);
                 await handleSubscriptionCreated(event.data.object);
@@ -208,15 +208,15 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             case 'customer.subscription.updated':
                 console.log('Subscription updated:', event.data.object.id);
                 await handleSubscriptionUpdated(event.data.object);
-                break;
-
+            break;
+        
             case 'customer.subscription.deleted':
                 console.log('Subscription cancelled:', event.data.object.id);
                 await handleSubscriptionCancelled(event.data.object);
-                break;
-
-            default:
-                console.log(`Unhandled event type ${event.type}`);
+            break;
+        
+        default:
+            console.log(`Unhandled event type ${event.type}`);
         }
     } catch (error) {
         console.error('Error handling webhook event:', error);
@@ -654,8 +654,8 @@ async function handleSubscriptionCancelled(subscription) {
     } catch (error) {
         console.error('Error handling subscription cancellation:', error);
     }
-}
-
+    }
+    
 // Student Portal Login API
 router.post('/student-login', [
     body('email').isEmail().withMessage('Valid email is required'),
